@@ -3,6 +3,13 @@
         <ul id="menu">
             <div id="leftBar">
                 <li><%= link_to "Strona główna", root_path %></li>
+                <% if user_signed_in? %>
+                <li><%= link_to "Edytuj profil",edit_user_registration_path %></li>
+                <li><%= link_to "Wyloguj",destroy_user_session_path, method: :delete %></li>
+                <% else %>
+                <li><%= link_to "Rejestracja",new_user_registration_path %></li>
+                <li><%= link_to "Zaloguj się",new_user_session_path %></li>
+                <% end %>
                 <li><%= link_to "O autorze", home_about_path %></li>
             </div>
         </ul>

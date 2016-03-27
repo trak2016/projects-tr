@@ -12,6 +12,9 @@
 		<%= render 'home/header' %>
 		<%= render "home/aside" %>
 		<section id="content">
+			<% flash.each do |name, msg| %>
+				<%= content_tag(:div, msg, class: "alert alert-info") %>
+			<% end %>
 			<%= yield %>
 		</section>
 		<div id="clear"></div>

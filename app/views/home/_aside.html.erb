@@ -2,7 +2,14 @@
     <nav>
         <ul id="menu">
             <div id="leftBar">
+                <% if user_signed_in? %>
+                <% name = Role.where(:email => current_user.email).pluck(:name).uniq.join %>
+                <p>Zalogowany jako <%= current_user.email %></p>
+                <% end %>
                 <li><%= link_to "Strona główna", root_path %></li>
+                <% if user_signed_in? && name=="administrator" %>
+                <li><%= link_to "Lista ról w systemie",roles_path %></li>
+                <% end %>
                 <% if user_signed_in? %>
                 <li><%= link_to "Edytuj profil",edit_user_registration_path %></li>
                 <li><%= link_to "Wyloguj",destroy_user_session_path, method: :delete %></li>

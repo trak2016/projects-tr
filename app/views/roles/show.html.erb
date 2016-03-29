@@ -1,0 +1,12 @@
+<p>
+  <strong>Email użytkownika:</strong>
+  <%= @role.email %>
+</p>
+
+<p>
+  <strong>Rola w systemie:</strong>
+  <%= @role.name %>
+</p>
+<% if @role.name != "administrator" %>
+<%= link_to 'Zmień rolę użytkownika', edit_role_path(@role) %> | <% end %>
+<%= link_to 'Powrót', roles_path %>

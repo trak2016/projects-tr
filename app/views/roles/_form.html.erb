@@ -1,0 +1,26 @@
+<%= form_for(@role) do |f| %>
+  <% if @role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+      <ul>
+      <% @role.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field form-inline form-group">
+    <%= f.label :email_użytkownika %><br>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="field form-inline form-group">
+    <%= f.label :nazwa_roli %><br>
+    <%= f.select(:name, ["student","administrator","prowadzący"], {}, {class: "form-control"}) %>
+
+  </div>
+  <div class="actions form-inline form-group">
+    <%= f.submit class: "btn btn-default", value: "Wyślij" %>
+  </div>
+<% end %>

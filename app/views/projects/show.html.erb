@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Temat projektu:</strong><br />
+  <%= @project.topic %>
+</p>
+
+<p>
+  <strong>Szczegóły dotyczące projektu:</strong><br />
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Prowadzący:</strong>
+  <%= @project.supervisor %>
+</p>
+
+<p>
+  <strong>Status rezerwacji:</strong><br />
+  <% if !@project.reserved %>
+  Projekt jest wolny.
+  <% else %>
+  Projekt jest zarezerwowany.
+  <% end %>
+</p>
+
+<%= link_to 'Powrót do listy projektów', projects_path %>

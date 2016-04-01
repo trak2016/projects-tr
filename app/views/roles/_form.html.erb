@@ -11,9 +11,13 @@
     </div>
   <% end %>
   
+  <% emailsFromUsers = User.pluck(:email) %>
+  <% emailsFromRoles = Role.pluck(:email) %>
+  <% difference = emailsFromUsers - emailsFromRoles %>
+  
   <div class="field form-inline form-group">
     <%= f.label :email_użytkownika %><br>
-    <%= f.text_field :email, class: "form-control" %>
+    <%= f.select(:email, difference, {}, class: "form-control") %>
   </div>
   <div class="field form-inline form-group">
     <%= f.label :nazwa_roli %><br>

@@ -1,0 +1,38 @@
+<%= form_for(@project) do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <% if user_signed_in? %>
+  <% name = Role.where(:email => current_user.email).pluck(:name).uniq.join %>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :Temat %><br>
+    <%= f.text_field :topic, class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :opis %><br>
+    <%= f.text_area(:description, size: "120x6", class: "form-control") %>
+  </div>
+  <div class="field form-group form-inline">
+    <%= f.label :prowadzący %><br>
+    <% if name == "prowadzący" %>
+    <%= f.select(:supervisor, [current_user.email], {}, class: "form-control") %>
+    <% elsif name == "administrator" %>
+    <% supervisors = Role.where(:name => "prowadzący").pluck(:email).uniq %>
+    <%= f.select(:supervisor, supervisors, {}, class: "form-control") %>
+    <% end %>
+  </div>
+  <div class="actions form-group">
+    <%= f.submit value: "Wyślij", class: "btn btn-default" %>
+  </div>
+<% end %>

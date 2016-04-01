@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<% if user_signed_in? %>
+<% name = Role.where(:email => current_user.email).pluck(:name).uniq.join %>
+<% end %>
+
+<table class="table table-hovered table-striped">
+  <thead>
+    <tr>
+      <th>Temat</th>
+      <th>Prowadzący</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.topic %></td>
+        <td><%= project.supervisor %></td>
+        <td><%= link_to 'Szczegóły', project %></td>
+        <% if user_signed_in? && current_user.email == project.supervisor %>
+        <td><%= link_to 'Edytuj', edit_project_path(project) %></td>
+        <td><%= link_to 'Usuń', project, method: :delete, data: { confirm: 'Czy na pewno usunąć temat?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if user_signed_in? && name != "" && name != "student" %>
+<%= link_to 'Dodaj nowy temat', new_project_path %>
+<% end %>

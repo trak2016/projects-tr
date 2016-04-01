@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328183846) do
+ActiveRecord::Schema.define(version: 20160401131108) do
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "topic"
+    t.string   "description"
+    t.boolean  "reserved",    default: false
+    t.string   "supervisor"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       null: false

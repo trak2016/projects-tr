@@ -14,6 +14,12 @@
                 <% if user_signed_in? && name != "" && name != "student" %>
                 <li><%= link_to "Dodaj nowy projekt", new_project_path %></li>
                 <% end %>
+                <% if user_signed_in? && name =="prowadzący" %>
+                <li><%= link_to "Moje rezerwacje", reservations_path %></li>
+                <% end %>
+                <% if user_signed_in? && name =="student" %>
+                <li><%= link_to "Mój projekt", home_about_path %></li>
+                <% end %>
                 <% if user_signed_in? %>
                 <li><%= link_to "Edytuj profil",edit_user_registration_path %></li>
                 <li><%= link_to "Wyloguj",destroy_user_session_path, method: :delete %></li>
@@ -21,7 +27,6 @@
                 <li><%= link_to "Rejestracja",new_user_registration_path %></li>
                 <li><%= link_to "Zaloguj się",new_user_session_path %></li>
                 <% end %>
-                <li><%= link_to "O autorze", home_about_path %></li>
             </div>
         </ul>
     </nav>

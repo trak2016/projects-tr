@@ -1,1 +1,11 @@
-<p>Informacje o autorze...</p>
+<h2>Informacje o moim projekcie...</h2>
+<% if user_signed_in? %>
+<% hasReservation = Reservation.where(:student_email => current_user.email).pluck(:project_id) %>
+<% end %>
+
+<% if hasReservation.empty? == true %>
+<p>Przejdź do <%= link_to "listy projektów", projects_path %> i wybierz coś dla siebie.</p>
+<% else %>
+<p><b>Temat projektu:</b> <%= Project.where(:reserved => true, :id => hasReservation).pluck(:topic).join %></p>
+<p><b>Prowadzący:</b> <%= Project.where(:reserved => true, :id => hasReservation).pluck(:supervisor).join %> </p>
+<% end %>

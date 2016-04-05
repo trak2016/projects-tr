@@ -1,15 +1,14 @@
-<p id="notice"><%= notice %></p>
-
 <% if user_signed_in? %>
 <% name = Role.where(:email => current_user.email).pluck(:name).uniq.join %>
+<% hasReservation = Reservation.where(:student_email => current_user.email).to_a %>
 <% end %>
 
-<table class="table table-hovered table-striped">
+<table class="table table-hover table-striped">
   <thead>
     <tr>
       <th>Temat</th>
       <th>Prowadzący</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -19,10 +18,21 @@
         <td><%= project.topic %></td>
         <td><%= project.supervisor %></td>
         <td><%= link_to 'Szczegóły', project %></td>
-        <% if user_signed_in? && current_user.email == project.supervisor %>
-        <td><%= link_to 'Edytuj', edit_project_path(project) %></td>
-        <td><%= link_to 'Usuń', project, method: :delete, data: { confirm: 'Czy na pewno usunąć temat?' } %></td>
-        <% end %>
+        <td>
+          <% if user_signed_in? && hasReservation.empty? == true && name == "student" && project.reserved == false %>
+          <%= link_to "Zarezerwuj", new_reservation_path(project) %>
+          <% end %>
+        </td>
+        <td>
+          <% if user_signed_in? && current_user.email == project.supervisor %>
+          <%= link_to 'Edytuj', edit_project_path(project) %>
+          <% end %>
+        </td>
+        <td>
+          <% if project.reserved == false %>
+          <%= link_to 'Usuń', project, method: :delete, data: { confirm: 'Czy na pewno usunąć temat?' } %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

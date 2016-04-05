@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401131108) do
+ActiveRecord::Schema.define(version: 20160404232304) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "topic"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20160401131108) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.string   "student_email"
+    t.string   "supervisor_email"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "reservations", ["project_id"], name: "index_reservations_on_project_id"
+  add_index "reservations", ["user_id"], name: "index_reservations_on_user_id"
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       null: false

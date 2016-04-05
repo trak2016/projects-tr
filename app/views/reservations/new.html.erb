@@ -1,0 +1,15 @@
+<h1>Rezerwacja tematu</h1>
+
+<% projectToReserve = Project.find(params['format']) %>
+  Wybrano temat: <br />
+  <b><%= projectToReserve.topic %></b><br />
+  u prowadzącego <b><%= projectToReserve.supervisor %></b>.<br /><br />
+  <% @reservation.user_id = current_user.id
+  @reservation.project_id = projectToReserve.id
+  @reservation.student_email = current_user.email
+  @reservation.supervisor_email = projectToReserve.supervisor %>
+  <% @reservation.save %>
+  <% projectToReserve.reserved = true %>
+  <% projectToReserve.save %>
+
+<%= link_to 'Powrót do listy projektów', projects_path %>

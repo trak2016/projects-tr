@@ -1,0 +1,22 @@
+<p>
+  <strong>User:</strong>
+  <%= @reservation.user %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @reservation.project %>
+</p>
+
+<p>
+  <strong>Student email:</strong>
+  <%= @reservation.student_email %>
+</p>
+
+<p>
+  <strong>Supervisor email:</strong>
+  <%= @reservation.supervisor_email %>
+</p>
+
+<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
+<%= link_to 'Back', reservations_path %>
